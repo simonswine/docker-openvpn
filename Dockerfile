@@ -1,9 +1,6 @@
-FROM debian:jessie
+FROM quay.io/aptible/alpine:3.4
 
-ENV DEBIAN_FRONTEND noninteractive
+RUN apk update
+RUN apk add openvpn
 
-RUN \
-  apt-get update && \
-  apt-get install -y \
-      openvpn && \
-  apt-get clean autoclean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+CMD ["/usr/sbin/openvpn", "/etc/openvpn/vpn.conf"]
